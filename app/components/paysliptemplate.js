@@ -18,7 +18,7 @@ export default function PayslipTemplate({}){
 </tr>
 </table>
 
-<table className=" w-full">
+<table className="w-full">
 <div className="flex items-start border">
 
   
@@ -129,8 +129,8 @@ export default function PayslipTemplate({}){
 
 <div className="border">
 <p>
-"Whence Financial Services strives for accuracy in all pay-related matters. If you notice any
-discrepancies, please let your immediate supervisor know right away."
+Whence Financial Services strives for accuracy in all pay-related matters. If you notice any
+discrepancies, please let your immediate supervisor know right away.
 </p>
 </div>
 
