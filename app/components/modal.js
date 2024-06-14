@@ -9,24 +9,8 @@ import { Image, Text, View, Page, Document, StyleSheet, PDFViewer } from '@react
 const Modal=({isVisible,onClose})=>{
     if(!isVisible) return null;
 
-    const payslipTemplateRef = useRef(null);
+  
     let pdfjs = document.getElementById('payslip');
-    const generateTemplatePdf =()=>{
-        const doc = new jsPDF({
-            orientation: 'portrait',
-            unit: 'pt',
-            format: 'a4',
-        }); 
-    
-    
-    doc.html(payslipTemplateRef.current,{
-        async callback(doc){
-            await doc.save('document')
-        },
-       // html2canvas: { scale: 0.5 }
-    })
-    
-    }
     //'landscape', 'pt', [1200, 600]
 
     const GenericPdfDownloader = ({rootElementId , downloadFileName}) => {
