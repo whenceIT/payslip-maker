@@ -69,26 +69,33 @@ doc.html(payslipTemplateRef.current,{
     }
 
     return(
-        <>
-         <h1>Payslip maker</h1>
-    <form onSubmit={handleFileSubmit}>
+        <div className='p-2'>
+        <nav className="relative px-4 py-4 flex justify-center items-center bg-white">
+        <img alt='logo' src='/logo.png'/>
+        </nav>
+
+         <div className='flex justify-center'>
+          
+            <form onSubmit={handleFileSubmit} className='flex flex-col gap-3'>
       <input type='file' required onChange={handleFile}></input>
-      <button type='submit'>UPLOAD</button>
+      <button type='submit' className='font-bold text-white bg-[#008000] focus:outline-none focus:ring-4 rounded-lg px-12 py-3 text-center'>UPLOAD</button>
       {typeError&&(
         <div>{typeError}</div>
       )}
     </form>
+         </div>
+  
 
-<div>
+<div className='relative overflow-x-auto mt-5'>
 {
     excelData?(
         <>
-        <table>
-            <thead>
+        <table className='table-auto w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
+            <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
                 <tr>
                     {Object.keys(excelData[0]).map((key)=>(
                         <>
-                            <th key={key}>{key}
+                            <th className='px-6 py-3' key={key}>{key}
                             </th>
                       
                         </>
@@ -101,16 +108,16 @@ doc.html(payslipTemplateRef.current,{
             <tbody>
                 {
                     excelData.map((individualExcelData,index)=>(
-                        <tr key={index}>
+                        <tr key={index} className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
                             {Object.keys(individualExcelData).map((key,index)=>(
                                 <>
-                                 <td key={key}>{individualExcelData[key]}</td>
+                                 <td className= 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white' key={key}>{individualExcelData[key]}</td>
                            
                                 </>
                                
                             ))}
                                   <td>
-                                    <button onClick={()=>{
+                                    <button className='font-bold text-white bg-[#008000] focus:outline-none focus:ring-4 rounded-lg px-4 py-3 text-center' onClick={()=>{
                                         setIndex(index)
                                         setShowModal(true)
                                     }}>
@@ -126,9 +133,9 @@ doc.html(payslipTemplateRef.current,{
         </table>
         </>
     ):(
-        <>
+        <div className='flex justify-center items-center'>
         <p>No file uploaded!!</p>
-        </>
+        </div>
     )
 }
 </div>
@@ -140,6 +147,6 @@ doc.html(payslipTemplateRef.current,{
     )
 }
 
-        </>
+        </div>
     )
 }

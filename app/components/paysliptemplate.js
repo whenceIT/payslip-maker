@@ -1,7 +1,5 @@
 export default function PayslipTemplate({}){
     return(
-        
-       
 <div className="bg-white w-full border">
 <h3 className="text-center">Whence Financial Services</h3>
 <h3 className="text-center">Payslip</h3>
