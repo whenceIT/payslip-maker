@@ -62,7 +62,7 @@ doc.html(payslipTemplateRef.current,{
             const worksheetName = workbook.SheetNames[0];
             const worksheet = workbook.Sheets[worksheetName]
             const data = XLSX.utils.sheet_to_json(worksheet);
-            console.log(data[0])
+            console.log(data[0]['Gross Pay'])
             setExcelData(data);
 
         }
@@ -141,7 +141,7 @@ doc.html(payslipTemplateRef.current,{
 </div>
 {
     indexnum != null ? (
-        <Modal isVisible={showModal} onClose={()=>setShowModal(false)}/>
+        <Modal isVisible={showModal} onClose={()=>setShowModal(false)} Name={excelData[indexnum]['Staff']} grossPay={excelData[indexnum]['Gross Pay']} NAPSA={excelData[indexnum]['NAPSA']} NHIMA={excelData[indexnum]['NHIMA']} PAYE={excelData[indexnum]['PAYE']} ALLOWANCES={excelData[indexnum]['Allowances']} DEDUCTIONS={excelData[indexnum]['Advance Deductions']} CHARGES={excelData[indexnum]['Charges']} NET_PAY={excelData[indexnum]['Net Pay']} DATE={excelData[indexnum]['Date']}/>
     ):(
         <></>
     )
