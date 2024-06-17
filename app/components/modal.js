@@ -191,7 +191,7 @@ const Modal=({isVisible,onClose,Name,grossPay,NAPSA,NHIMA,PAYE,ALLOWANCES, DEDUC
 
                         <View style={styles.table5}>
                             <Text>Comments</Text>
-                            <Text>"Whence Financial Services strives for accuracy in all pay-related matters. If you notice any
+                            <Text>Whence Financial Services strives for accuracy in all pay-related matters. If you notice any
  discrepancies, please let your immediate supervisor know right away.</Text>
                         </View>
             
