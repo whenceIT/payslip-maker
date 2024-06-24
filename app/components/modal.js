@@ -3,13 +3,26 @@ import jsPDF from 'jspdf';
 import html2canvas from "html2canvas";
 import PayslipTemplate from "./paysliptemplate";
 import React, { useState,useEffect,useRef}  from 'react';
-import { Image, Text, View, Page, Document, StyleSheet, PDFViewer} from '@react-pdf/renderer';
+import { Image, Text, View, Page, Document, StyleSheet, PDFViewer, Font} from '@react-pdf/renderer';
+
+
+
+
 
 
 const Modal=({isVisible,onClose,Name,grossPay,NAPSA,NHIMA,PAYE,ALLOWANCES, DEDUCTIONS,CHARGES,NET_PAY,DATE})=>{
+const file = '/fonts/Roboto-Bold.ttf' 
+
+Font.register({
+    family: 'Roboto',
+    src: '/Roboto-Bold.ttf',
+    format: 'truetype', 
+  });
+
     if(!isVisible) return null;
 
-  
+
+
     let pdfjs = document.getElementById('payslip');
     //'landscape', 'pt', [1200, 600]
 
@@ -45,7 +58,8 @@ const Modal=({isVisible,onClose,Name,grossPay,NAPSA,NHIMA,PAYE,ALLOWANCES, DEDUC
     const styles = StyleSheet.create({
         
         page:{borderStyle: 'solid',fontSize: 11,paddingTop: 20,paddingLeft: 40,paddingRight: 40,lineHeight: 1.5,flexDirection: 'column'},
-        titleView:{textAlign: 'center',flexDirection: 'column',gap:2,},
+        titleView:{textAlign: 'center',flexDirection: 'column',gap:2,alignItems:'center'},
+        logo:{width:50},
         pdfView:{overflow:true},
         table1:{borderWidth:1,padding:20,marginTop:20},
         table1FirstRow:{flexDirection:'row',justifyContent:'space-evenly',},
@@ -62,6 +76,7 @@ const Modal=({isVisible,onClose,Name,grossPay,NAPSA,NHIMA,PAYE,ALLOWANCES, DEDUC
         tableHeader:{flexDirection:'row',justifyContent:'space-between',padding:1,borderBottom:1},
         column:{flexDirection:'column',justifyContent:'space-evenly'},
         tableText:{margin:5},
+        boldText: { fontFamily: 'Roboto' },
         totalPay:{flexDirection:'row',justifyContent:'space-between',padding:2},
         table4Header:{padding:4},
         headerText:{fontWeight:'bold'}
@@ -83,15 +98,16 @@ const Modal=({isVisible,onClose,Name,grossPay,NAPSA,NHIMA,PAYE,ALLOWANCES, DEDUC
                     <Page size="A4" style={styles.page}>
                         {/* PAYSLIP TITLE */}
                         <View style={styles.titleView}>
+                            <Image style={styles.logo} src='/logo.png'/>
                             <Text>Whence Financial Services</Text>
                             <Text>Payslip</Text>
                         </View>
                         <View style={styles.table1}>
                             <View style={styles.table1FirstRow}> 
-                                <Text>Employee Name</Text>
-                                <Text>{Name}</Text>
+                                <Text >Employee Name</Text>
+                                <Text style={styles.boldText}>{Name}</Text>
                                 <Text>Payroll Date</Text>
-                                <Text>{DATE}</Text>
+                                <Text style={styles.boldText}>{DATE}</Text>
                             </View>
 
                         </View>
@@ -105,11 +121,11 @@ const Modal=({isVisible,onClose,Name,grossPay,NAPSA,NHIMA,PAYE,ALLOWANCES, DEDUC
                                
                                 <View style={styles.row}>
                                 <Text>Basic Pay</Text>
-                                <Text>{grossPay}</Text>
+                                <Text style={styles.boldText}>{grossPay}</Text>
                                 </View>
                                 <View style={styles.row}>
                                 <Text>Performance Allowance</Text>
-                                <Text>{ALLOWANCES}</Text>
+                                <Text style={styles.boldText}>{ALLOWANCES}</Text>
                                 </View>
                                
                             </View>
@@ -121,23 +137,23 @@ const Modal=({isVisible,onClose,Name,grossPay,NAPSA,NHIMA,PAYE,ALLOWANCES, DEDUC
                                 </View>
                                 <View style={styles.row}>
                                 <Text>Salary Advance Deduction</Text>
-                                <Text>{DEDUCTIONS}</Text>
+                                <Text style={styles.boldText}>{DEDUCTIONS}</Text>
                                 </View>
                                 <View style={styles.row}>
                                 <Text>Penalty Deductions</Text>
-                                <Text>{CHARGES}</Text>
+                                <Text style={styles.boldText}>{CHARGES}</Text>
                                 </View>
                                 <View style={styles.row}>
                                 <Text>NAPSA</Text>
-                                <Text>{NAPSA}</Text>
+                                <Text style={styles.boldText}>{NAPSA}</Text>
                                 </View>
                                 <View style={styles.row}>
                                 <Text>PAYE</Text>
-                                <Text>{PAYE}</Text>
+                                <Text style={styles.boldText}>{PAYE}</Text>
                                 </View>
                                 <View style={styles.row}>
                                 <Text>NHIMA</Text>
-                                <Text>{NHIMA}</Text>
+                                <Text style={styles.boldText}>{NHIMA}</Text>
                                 </View>
                             </View>
                         </View>
@@ -156,14 +172,14 @@ const Modal=({isVisible,onClose,Name,grossPay,NAPSA,NHIMA,PAYE,ALLOWANCES, DEDUC
                          
                         <View style={styles.totalPay}>
                             <Text>Net Pay</Text>
-                            <Text>{NET_PAY}</Text>
+                            <Text style={styles.boldText}>{NET_PAY}</Text>
                         </View>
 
                         </View>
 
                         <View style={styles.table4}>
                             <View style={styles.table4Header}>
-                                <Text>Net Pay Distribution</Text>
+                                <Text style={styles.boldText}>Net Pay Distribution</Text>
                             </View>
                             <View style={styles.row2}>
                                 <View style={styles.column}>
@@ -190,7 +206,10 @@ const Modal=({isVisible,onClose,Name,grossPay,NAPSA,NHIMA,PAYE,ALLOWANCES, DEDUC
                         </View>
 
                         <View style={styles.table5}>
-                            <Text>Comments</Text>
+             
+                            <Text style={styles.boldText}>
+                                Comments</Text>
+                          
                             <Text>Whence Financial Services strives for accuracy in all pay-related matters. If you notice any
  discrepancies, please let your immediate supervisor know right away.</Text>
                         </View>
