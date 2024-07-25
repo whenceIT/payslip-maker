@@ -65,6 +65,7 @@ doc.html(payslipTemplateRef.current,{
             const worksheetName = workbook.SheetNames[0];
             const worksheet = workbook.Sheets[worksheetName]
             const data = XLSX.utils.sheet_to_json(worksheet,{defval:''});
+            console.log(data)
             setExcelData(data);
 
         }
@@ -74,7 +75,7 @@ doc.html(payslipTemplateRef.current,{
         setIsLoading(true)
         for (let indexnum = 0; indexnum < excelData.length ; indexnum++) {
             if(excelData[indexnum]['Email'] != ''){
-                const blob = await pdf(<PayslipTemplate Name={excelData[indexnum]['Staff']} grossPay={excelData[indexnum]['Gross Pay']} NAPSA={excelData[indexnum]['NAPSA']} NHIMA={excelData[indexnum]['NHIMA']} PAYE={excelData[indexnum]['PAYE']} ALLOWANCES={excelData[indexnum]['Allowances']} DEDUCTIONS={excelData[indexnum]['Advance Deductions']} CHARGES={excelData[indexnum]['Charges']} NET_PAY={excelData[indexnum]['Net Pay']} DATE={excelData[indexnum]['Date']}/>).toBlob();
+                const blob = await pdf(<PayslipTemplate Name={excelData[indexnum]['FIRST NAME'] + ' ' + excelData[indexnum]['SURNAME'] } grossPay={excelData[indexnum]['GROSS PAY'].toFixed(2)} NAPSA={excelData[indexnum]['NAPSA 5%'].toFixed(2)} NHIMA={excelData[indexnum]['NHIMA 1%']} PAYE={excelData[indexnum]['PAYE']} ALLOWANCES={excelData[indexnum]['Allowance']} DEDUCTIONS={excelData[indexnum]['ADVANCE DEDUCTION']} CHARGES={excelData[indexnum]['Charges']} NET_PAY={excelData[indexnum]['NET PAY']} DATE={excelData[indexnum]['DATE']}/>).toBlob();
             console.log(blob)
             const pdfFile = new File([blob],`${excelData[indexnum]['Staff']} - payslip.pdf`,{
                 type: 'application/pdf',
@@ -104,7 +105,7 @@ doc.html(payslipTemplateRef.current,{
 
     const sendFile=async(indexnum)=>{
         setIsLoading(true)
-        const blob = await pdf(<PayslipTemplate Name={excelData[indexnum]['Staff']} grossPay={excelData[indexnum]['Gross Pay']} NAPSA={excelData[indexnum]['NAPSA']} NHIMA={excelData[indexnum]['NHIMA']} PAYE={excelData[indexnum]['PAYE']} ALLOWANCES={excelData[indexnum]['Allowances']} DEDUCTIONS={excelData[indexnum]['Advance Deductions']} CHARGES={excelData[indexnum]['Charges']} NET_PAY={excelData[indexnum]['Net Pay']} DATE={excelData[indexnum]['Date']}/>).toBlob();
+        const blob = await pdf(<PayslipTemplate Name={excelData[indexnum]['FIRST NAME'] + ' ' + excelData[indexnum]['SURNAME'] } grossPay={excelData[indexnum]['GROSS PAY'].toFixed(2)} NAPSA={excelData[indexnum]['NAPSA 5%'].toFixed(2)} NHIMA={excelData[indexnum]['NHIMA 1%'].toFixed(2)} PAYE={excelData[indexnum]['PAYE'].toFixed(2)} ALLOWANCES={excelData[indexnum]['Allowance'].toFixed(2)} DEDUCTIONS={excelData[indexnum]['ADVANCE DEDUCTION'].toFixed(2)} NET_PAY={excelData[indexnum]['NET PAY'].toFixed(2)} DATE={excelData[indexnum]['DATE']}/>).toBlob();
         const pdfFile = new File([blob],`${excelData[indexnum]['Staff']} - payslip.pdf`,{
             type: 'application/pdf',
              lastModified: new Date().getTime()
@@ -190,7 +191,14 @@ doc.html(payslipTemplateRef.current,{
                         <tr key={index} className='bg-white border-b'>
                             {Object.keys(individualExcelData).map((key,index)=>(
                                 <>
-                                 <td className= 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap' key={key}>{individualExcelData[key]}</td>
+                                {
+                                    typeof(individualExcelData[key]) == 'number' ? (<>
+                                    <td>{individualExcelData[key].toFixed(2)}</td>
+                                    </>):(<>
+                                        <td>{individualExcelData[key]}</td>
+                                    </>)
+                                }
+                               
                            
                                 </>
                                
@@ -227,7 +235,7 @@ doc.html(payslipTemplateRef.current,{
 </div>
 {
     indexnum != null ? (
-        <Modal isVisible={showModal} onClose={()=>setShowModal(false)} Name={excelData[indexnum]['Staff']} grossPay={excelData[indexnum]['Gross Pay']} NAPSA={excelData[indexnum]['NAPSA']} NHIMA={excelData[indexnum]['NHIMA']} PAYE={excelData[indexnum]['PAYE']} ALLOWANCES={excelData[indexnum]['Allowances']} DEDUCTIONS={excelData[indexnum]['Advance Deductions']} CHARGES={excelData[indexnum]['Charges']} NET_PAY={excelData[indexnum]['Net Pay']} DATE={excelData[indexnum]['Date']}/>
+        <Modal isVisible={showModal} onClose={()=>setShowModal(false)} Name={excelData[indexnum]['FIRST NAME'] + ' ' + excelData[indexnum]['SURNAME'] } grossPay={excelData[indexnum]['GROSS PAY']} NAPSA={excelData[indexnum]['NAPSA 5%']} NHIMA={excelData[indexnum]['NHIMA 1%']} PAYE={excelData[indexnum]['PAYE']} ALLOWANCES={excelData[indexnum]['Allowance']} DEDUCTIONS={excelData[indexnum]['ADVANCE DEDUCTION']} NET_PAY={excelData[indexnum]['NET PAY']} DATE={excelData[indexnum]['DATE']}/>
     ):(
         <></>
     )

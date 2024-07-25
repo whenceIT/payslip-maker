@@ -6,11 +6,7 @@ import React, { useState,useEffect,useRef}  from 'react';
 import { Image, Text, View, Page, Document, StyleSheet, PDFViewer, Font} from '@react-pdf/renderer';
 
 
-
-
-
-
-const Modal=({isVisible,onClose,Name,grossPay,NAPSA,NHIMA,PAYE,ALLOWANCES, DEDUCTIONS,CHARGES,NET_PAY,DATE})=>{
+const Modal=({isVisible,onClose,Name,grossPay,NAPSA,NHIMA,PAYE,ALLOWANCES, DEDUCTIONS,NET_PAY,DATE})=>{
 const file = '/fonts/Roboto-Bold.ttf' 
 
 Font.register({
@@ -121,11 +117,16 @@ Font.register({
                                
                                 <View style={styles.row}>
                                 <Text>Basic Pay</Text>
-                                <Text style={styles.boldText}>{grossPay}</Text>
+                                <Text style={styles.boldText}>{
+                                    grossPay != '' ?  grossPay.toFixed(2):grossPay
+                                }</Text>
                                 </View>
+
                                 <View style={styles.row}>
                                 <Text>Performance Allowance</Text>
-                                <Text style={styles.boldText}>{ALLOWANCES}</Text>
+                                <Text style={styles.boldText}>{
+                                    ALLOWANCES != '' ?   ALLOWANCES.toFixed(2):ALLOWANCES
+                                }</Text>
                                 </View>
                                
                             </View>
@@ -137,23 +138,28 @@ Font.register({
                                 </View>
                                 <View style={styles.row}>
                                 <Text>Salary Advance Deduction</Text>
-                                <Text style={styles.boldText}>{DEDUCTIONS}</Text>
-                                </View>
-                                <View style={styles.row}>
-                                <Text>Penalty Deductions</Text>
-                                <Text style={styles.boldText}>{CHARGES}</Text>
+                                <Text style={styles.boldText}>{
+                                   DEDUCTIONS != '' ? DEDUCTIONS.toFixed(2):DEDUCTIONS
+                                    }</Text>
                                 </View>
                                 <View style={styles.row}>
                                 <Text>NAPSA</Text>
-                                <Text style={styles.boldText}>{NAPSA}</Text>
+                                <Text style={styles.boldText}>{
+                                    NAPSA != '' ? NAPSA.toFixed(2):NAPSA
+                                }</Text>
                                 </View>
                                 <View style={styles.row}>
                                 <Text>PAYE</Text>
-                                <Text style={styles.boldText}>{PAYE}</Text>
+                                <Text style={styles.boldText}>{
+                                    PAYE != '' ? PAYE.toFixed(2):PAYE
+                                }
+                                </Text>
                                 </View>
                                 <View style={styles.row}>
                                 <Text>NHIMA</Text>
-                                <Text style={styles.boldText}>{NHIMA}</Text>
+                                <Text style={styles.boldText}>{
+                                    NHIMA != '' ? NHIMA.toFixed(2):NHIMA
+                                }</Text>
                                 </View>
                             </View>
                         </View>
@@ -172,7 +178,9 @@ Font.register({
                          
                         <View style={styles.totalPay}>
                             <Text>Net Pay</Text>
-                            <Text style={styles.boldText}>{NET_PAY}</Text>
+                            <Text style={styles.boldText}>{
+                                NET_PAY != '' ?  NET_PAY.toFixed(2):NET_PAY
+                            }</Text>
                         </View>
 
                         </View>
