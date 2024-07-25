@@ -87,7 +87,7 @@ doc.html(payslipTemplateRef.current,{
             formData.append('email',excelData[indexnum]['Email'])
             formData.append('filename',pdfFile.name)
             formData.append('date',excelData[indexnum]['Date'])
-         
+           
             await fetch('https://payslip-maker-backend-1.onrender.com/pdf_upload',{
                 method:'POST',
                 body:formData,
@@ -105,7 +105,7 @@ doc.html(payslipTemplateRef.current,{
 
     const sendFile=async(indexnum)=>{
         setIsLoading(true)
-        const blob = await pdf(<PayslipTemplate Name={excelData[indexnum]['FIRST NAME'] + ' ' + excelData[indexnum]['SURNAME'] } grossPay={excelData[indexnum]['GROSS PAY'].toFixed(2)} NAPSA={excelData[indexnum]['NAPSA 5%'].toFixed(2)} NHIMA={excelData[indexnum]['NHIMA 1%'].toFixed(2)} PAYE={excelData[indexnum]['PAYE'].toFixed(2)} ALLOWANCES={excelData[indexnum]['Allowance'].toFixed(2)} DEDUCTIONS={excelData[indexnum]['ADVANCE DEDUCTION'].toFixed(2)} NET_PAY={excelData[indexnum]['NET PAY'].toFixed(2)} DATE={excelData[indexnum]['DATE']}/>).toBlob();
+        const blob = await pdf(<PayslipTemplate Name={excelData[indexnum]['FIRST NAME'] + ' ' + excelData[indexnum]['SURNAME'] } grossPay={excelData[indexnum]['GROSS PAY']} NAPSA={excelData[indexnum]['NAPSA 5%']} NHIMA={excelData[indexnum]['NHIMA 1%']} PAYE={excelData[indexnum]['PAYE']} ALLOWANCES={excelData[indexnum]['Allowance']} DEDUCTIONS={excelData[indexnum]['ADVANCE DEDUCTION']} NET_PAY={excelData[indexnum]['NET PAY']} DATE={excelData[indexnum]['DATE']}/>).toBlob();
         const pdfFile = new File([blob],`${excelData[indexnum]['Staff']} - payslip.pdf`,{
             type: 'application/pdf',
              lastModified: new Date().getTime()
