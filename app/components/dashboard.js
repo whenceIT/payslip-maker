@@ -74,21 +74,21 @@ doc.html(payslipTemplateRef.current,{
     const sendAllPayslips=async()=>{
         setIsLoading(true)
         for (let indexnum = 0; indexnum < excelData.length ; indexnum++) {
-            if(excelData[indexnum]['Email'] != ''){
-                const blob = await pdf(<PayslipTemplate Name={excelData[indexnum]['FIRST NAME'] + ' ' + excelData[indexnum]['SURNAME'] } grossPay={excelData[indexnum]['GROSS PAY'].toFixed(2)} NAPSA={excelData[indexnum]['NAPSA 5%'].toFixed(2)} NHIMA={excelData[indexnum]['NHIMA 1%']} PAYE={excelData[indexnum]['PAYE']} ALLOWANCES={excelData[indexnum]['Allowance']} DEDUCTIONS={excelData[indexnum]['ADVANCE DEDUCTION']} CHARGES={excelData[indexnum]['Charges']} NET_PAY={excelData[indexnum]['NET PAY']} DATE={excelData[indexnum]['DATE']}/>).toBlob();
+            if(excelData[indexnum]['EMAIL'] != ''){
+                const blob = await pdf(<PayslipTemplate Name={excelData[indexnum]['FIRST NAME'] + ' ' + excelData[indexnum]['SURNAME'] } grossPay={excelData[indexnum]['GROSS PAY']} NAPSA={excelData[indexnum]['NAPSA 5%']} NHIMA={excelData[indexnum]['NHIMA 1%']} PAYE={excelData[indexnum]['PAYE']} ALLOWANCES={excelData[indexnum]['Allowance']} DEDUCTIONS={excelData[indexnum]['ADVANCE DEDUCTION']} CHARGES={excelData[indexnum]['Charges']} NET_PAY={excelData[indexnum]['NET PAY']} DATE={excelData[indexnum]['DATE']}/>).toBlob();
             console.log(blob)
-            const pdfFile = new File([blob],`${excelData[indexnum]['Staff']} - payslip.pdf`,{
+            const pdfFile = new File([blob],`${excelData[indexnum]['FIRST NAME'] + ' ' + excelData[indexnum]['SURNAME']} - payslip.pdf`,{
                 type: 'application/pdf',
                  lastModified: new Date().getTime()
             })
             console.log(pdfFile)
             const formData = new FormData()
             formData.append('pdf_file',pdfFile),
-            formData.append('email',excelData[indexnum]['Email'])
+            formData.append('email',excelData[indexnum]['EMAIL'])
             formData.append('filename',pdfFile.name)
-            formData.append('date',excelData[indexnum]['Date'])
-           
-            await fetch('https://payslip-maker-backend-1.onrender.com/pdf_upload',{
+            formData.append('date',excelData[indexnum]['DATE'])
+            
+            await fetch('http://localhost:5000/pdf_upload',{
                 method:'POST',
                 body:formData,
             }).then((data=>data.json()))
@@ -106,17 +106,17 @@ doc.html(payslipTemplateRef.current,{
     const sendFile=async(indexnum)=>{
         setIsLoading(true)
         const blob = await pdf(<PayslipTemplate Name={excelData[indexnum]['FIRST NAME'] + ' ' + excelData[indexnum]['SURNAME'] } grossPay={excelData[indexnum]['GROSS PAY']} NAPSA={excelData[indexnum]['NAPSA 5%']} NHIMA={excelData[indexnum]['NHIMA 1%']} PAYE={excelData[indexnum]['PAYE']} ALLOWANCES={excelData[indexnum]['Allowance']} DEDUCTIONS={excelData[indexnum]['ADVANCE DEDUCTION']} NET_PAY={excelData[indexnum]['NET PAY']} DATE={excelData[indexnum]['DATE']}/>).toBlob();
-        const pdfFile = new File([blob],`${excelData[indexnum]['Staff']} - payslip.pdf`,{
+        const pdfFile = new File([blob],`${excelData[indexnum]['FIRST NAME'] + ' ' + excelData[indexnum]['SURNAME']} - payslip.pdf`,{
             type: 'application/pdf',
              lastModified: new Date().getTime()
         })
         console.log(pdfFile)
         const formData = new FormData()
         formData.append('pdf_file',pdfFile),
-        formData.append('email',excelData[indexnum]['Email'])
+        formData.append('email',excelData[indexnum]['EMAIL'])
         formData.append('filename',pdfFile.name)
-        formData.append('date',excelData[indexnum]['Date'])
-        await fetch('https://payslip-maker-backend-1.onrender.com/pdf_upload',{
+        formData.append('date',excelData[indexnum]['DATE'])
+        await fetch('http://localhost:5000/pdf_upload',{
             method:'POST',
             body:formData,
         }).then((data=>data.json()))
